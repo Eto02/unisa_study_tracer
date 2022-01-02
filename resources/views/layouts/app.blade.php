@@ -9,6 +9,7 @@
 
     <script src="https://kendo.cdn.telerik.com/2021.3.914/js/jquery.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2021.3.914/js/kendo.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" charset="utf-8"></script>
 
     <link rel="stylesheet"   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <link  rel="stylesheet" href="{{ asset('css/app.css') }}"/>
@@ -18,18 +19,18 @@
     <title>@yield('page_title') | UNISA - TRACER STUDY</title>
     <style>
         .dropdown:hover .dropdown-menu {
-  display: block;
-}
+            display: block;
+          } 
     </style>
   </head>
   <body class="text-blueGray-700 antialiased">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root">
-      <nav
-        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+      <nav id='navigation'
+        class="transition duration-500 ease-in-out  md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64  z-10 py-4 px-6"
       >
         <div
-          class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto"
+          class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between mx-auto  hover:w-12"
         >
           <button
             class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
@@ -44,7 +45,7 @@
           >
           <img class="max-h-12" src="{{ asset('img/logo_text.png') }}" alt="">
            
-         <span class="self-center"> UNISA - TRACER STUDY</span>
+         <span class="self-center" id='text-navigation'> UNISA - TRACER STUDY</span>
           </a>
           <hr class="border">
           <ul class="md:hidden items-center flex flex-wrap list-none">
@@ -123,77 +124,50 @@
             </div>
        
             <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-              <li class="items-center">
+              <li class="items-center flex">
                 <a
-                  class="text-blueGray-500 hover:text-green-600 text-xs uppercase py-3 font-bold block"
+                  class="text-blueGray-500 hover:text-green-600 text-xs uppercase py-3 flex items-center font-bold block"
                   href="{{ route('home') }}"
                   ><i class="fas fa-home opacity-75 mr-2 text-sm"></i>
-                  HOME</a
-                >
+                  <div id='data-item ' class="">HOME</div></a>
+               
               </li>
             
               <li class=" dropdown inline-block relative">
                 <div class="flex-wrap">
                     <a
-                        class="text-blueGray-500 hover:text-green-600 text-xs uppercase py-3 font-bold block"
+                        class="text-blueGray-500 hover:text-green-600 text-xs uppercase flex items-center py-3 font-bold block"
                         href="#""
                         ><i class="fas fa-table opacity-75 mr-2 text-sm"></i>
-                        DATA
+                        <div id='data-item' class="">DATA</div>
                     </a >
                     <ul class="dropdown-menu hidden  text-gray-700 pt-1 ">
-                        <li class=""><a class="rounded-t bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="{{ route('data.data_tracer') }}">DATA TRACER</a></li>
-                        <li class=""><a class="bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="{{ route('data.pusat_karir') }}">PUSAT KARIR</a></li>
-                        <li class=""><a class="roundet-t bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="{{ route('data.upload_data_tracer') }}">UPLOAD DATA TRACER</a></li>
+                        <li class=""><a class="rounded-t bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="{{ route('data_akademik.data_akademik') }}">DATA AKADEMIK</a></li>
+                        <li class=""><a class="bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="#">PUSAT KARIR</a></li>
+                        <li class=""><a class="roundet-t bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="#">UPLOAD DATA TRACER</a></li>
                     </ul>
                 </div>
               </li>
-              <li class=" dropdown inline-block relative">
-                <div class="flex-wrap">
-                    <a
-                        class="text-blueGray-500 hover:text-green-600 text-xs uppercase py-3 font-bold block"
-                        href="#"
-                        ><i class="fas fa-question-circle opacity-75 mr-2 text-sm"></i>
-                        KUESIONER
-                    </a >
-                    <ul class="dropdown-menu hidden  text-gray-700 pt-1">
-                        <li class=""><a class="rounded-t bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="#">FORM KUESIONER</a></li>
-                     </ul>
-                </div>
-              </li>
-              <li class=" dropdown inline-block relative">
-                <div class="flex-wrap">
-                    <a
-                        class="text-blueGray-500 hover:text-green-600 text-xs uppercase py-3 font-bold block"
-                        href="#/dashboard"
-                        ><i class="fas fa-folder-open opacity-75 mr-2 text-sm"></i>
-                        REPORT
-                    </a >
-                    <ul class="dropdown-menu  hidden text-gray-700 pt-1">
-                        <li class=""><a class="rounded-t bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="{{ route('report.keselarasan_horisontal') }}">REPORT KESELARASAN HORISONTAL</a></li>
-                        <li class=""><a class="bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="#">REPORT KESELARASAN VERTIKAL</a></li>
-                        <li class=""><a class=" bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="#">REPORT LAMA TUNGGU</a></li>
-                        <li class=""><a class=" bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="#">STASTISTIK PER PRODI</a></li>
-                        <li class=""><a class="rounded-t bg-gray-100 hover:bg-green-400 py-2 px-4 block whitespace-no-wrap" href="#">STASTISTIK TRACER STUDY</a></li>
-                    </ul>
-                </div>
-              </li>
+       
             </ul>
  
           </div>
         </div>
       </nav>
-      <div class="relative md:ml-64 bg-blueGray-50">
+      <div class="relative md:ml-64 bg-blueGray-50" id='konten'>
         <nav
           class="absolute top-0 left-0 w-full z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
         >
           <div
             class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
           >
-            <a
-              class="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-              href="{{ route('home') }}"
-              >Home</a
-            >
+          <button
+          class="cursor-pointer text-white opacity-50 hidden sm:block  px-3 py-1 text-xl leading-none  rounded border border-solid "
+          type="button"
+          onclick="hideShow('#navigation')" >
+          <i class="fas fa-bars"></i>
+        </button>
+           
           
             <ul
               class="flex-col md:flex-row list-none items-center hidden md:flex"
@@ -340,6 +314,14 @@
         });
         document.getElementById(dropdownID).classList.toggle("hidden");
         document.getElementById(dropdownID).classList.toggle("block");
+      }
+
+      function hideShow(collapseID) {
+        console.log(collapseID);
+        $(collapseID).toggleClass('md:left-0 md:-left-1/4 ');
+        $('#konten').toggleClass('md:ml-64');
+
+    
       }
 
 
